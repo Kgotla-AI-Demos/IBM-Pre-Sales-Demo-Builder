@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    platform: linux/amd64
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      - DEMO_MODE=mock
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    platform: linux/amd64
+    ports:
+      - "3000:8080"
+    depends_on:
+      backend:
+        condition: service_healthy

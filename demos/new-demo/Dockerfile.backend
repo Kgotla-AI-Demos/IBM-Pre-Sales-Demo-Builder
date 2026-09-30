@@ -1,0 +1,12 @@
+# DEPLOY_TARGET: openshift
+# BUILD_ARCH: amd64
+# Base images: UBI 9 REQUIRED for OpenShift random-UID SCC.
+# Build: docker build --platform linux/amd64 -t factory-ai-backend -f Dockerfile.backend .
+
+FROM --platform=linux/amd64 registry.access.redhat.com/ubi9/python-311
+WORKDIR /opt/app-root/src
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY backend/ .
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

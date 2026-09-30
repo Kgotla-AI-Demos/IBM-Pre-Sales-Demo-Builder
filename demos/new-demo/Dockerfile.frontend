@@ -1,0 +1,17 @@
+# DEPLOY_TARGET: openshift
+# BUILD_ARCH: amd64
+# Base images: UBI 9 REQUIRED for OpenShift random-UID SCC.
+# Build: docker build --platform linux/amd64 -t factory-ai-frontend -f Dockerfile.frontend .
+
+FROM --platform=linux/amd64 registry.access.redhat.com/ubi9/nodejs-20 AS builder
+WORKDIR /opt/app-root/src
+COPY frontend/package*.json ./
+RUN npm ci
+COPY frontend/ .
+RUN npm run build
+
+FROM --platform=linux/amd64 registry.access.redhat.com/ubi9/nginx-124
+COPY --from=builder /opt/app-root/src/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 8080
+CMD ["nginx", "-g", "daemon off;"]
