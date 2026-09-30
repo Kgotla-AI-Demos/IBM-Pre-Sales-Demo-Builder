@@ -84,7 +84,7 @@ Copy `.env.example` → `.env` and fill in values:
 
 ---
 
-## 🐳 Container Deployment (OpenShift)
+## 🐳 Container Deployment (OpenShift — local stack)
 
 **DEPLOY_TARGET: openshift | BUILD_ARCH: amd64**
 
@@ -95,6 +95,67 @@ docker-compose up
 ```
 
 > UBI 9 base images are required for OpenShift's restricted SCC (random UID). Alpine/slim will fail.
+
+---
+
+## ☁️ Cloud Deployment — Netlify (frontend) + IBM Cloud Code Engine (backend)
+
+This is the recommended path for **sharing a live demo link** without managing an OpenShift cluster.
+
+### Architecture
+```
+Browser → Netlify CDN (React static build)
+               ↓  VITE_API_BASE_URL
+  Code Engine App (FastAPI, UBI 9, scales to zero)
+               ↓  (optional)
+         IBM watsonx.ai (live mode)
+```
+
+### Step 1 — Deploy the backend to Code Engine
+
+```bash
+export IBMCLOUD_API_KEY=<your-ibm-cloud-api-key>
+export ICR_NAMESPACE=<your-container-registry-namespace>
+export CODE_ENGINE_PROJECT=factory-ai-demo
+export CODE_ENGINE_REGION=us-south
+export NETLIFY_DOMAIN=https://factory-ai-demo.netlify.app   # your Netlify URL
+bash scripts/deploy-codengine.sh
+```
+
+The script prints your backend URL, e.g.:
+```
+Backend URL : https://factory-ai-backend.abcd1234.us-south.codeengine.appdomain.cloud
+➡  Set this as VITE_API_BASE_URL in Netlify:
+   https://factory-ai-backend.abcd1234.us-south.codeengine.appdomain.cloud/api
+```
+
+### Step 2 — Deploy the frontend to Netlify
+
+1. Push this repo to GitHub/GitLab.
+2. Create a new Netlify site → **Import from Git** → select your repo.
+3. Netlify auto-detects `netlify.toml` — build settings are pre-configured.
+4. In **Site Settings → Environment Variables**, add:
+
+| Variable | Value |
+|---|---|
+| `VITE_API_BASE_URL` | `https://<your-backend>.codeengine.appdomain.cloud/api` |
+| `VITE_DEMO_TITLE` | `Factory AI Predictive Maintenance — Built with IBM watsonx` |
+| `VITE_DEMO_CLIENT_CODE` | `DEMO-MFG-001` |
+
+5. Trigger a deploy (or push a commit). Netlify builds the React app with your env vars baked in.
+
+### Step 3 — Verify
+
+- Open your Netlify URL (e.g. `https://factory-ai-demo.netlify.app`)
+- Navigate to all 5 pages — data loads from Code Engine backend
+- The AI Agent page runs in **mock mode** by default (no credentials needed)
+
+### Cost estimate (demo usage — ~0 idle)
+| Service | Cost |
+|---|---|
+| Netlify Starter | **Free** (100GB bandwidth/month) |
+| Code Engine (min-scale=0) | **~$0 idle**, ~$0.01–0.05/day active |
+| IBM Container Registry | **~$0** for a small image |
 
 ---
 

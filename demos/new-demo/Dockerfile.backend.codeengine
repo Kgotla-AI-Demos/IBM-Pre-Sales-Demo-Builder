@@ -1,0 +1,24 @@
+# DEPLOY_TARGET: code-engine
+# BUILD_ARCH: amd64
+# IBM Cloud Code Engine backend — UBI 9 (IBM-native, works on Code Engine).
+# Build & push:
+#   docker build --platform linux/amd64 -t <registry>/<ns>/factory-ai-backend:latest -f Dockerfile.backend.codeengine .
+#   docker push <registry>/<ns>/factory-ai-backend:latest
+# Then deploy via IBM Cloud CLI or scripts/deploy-codengine.sh
+
+FROM --platform=linux/amd64 registry.access.redhat.com/ubi9/python-311
+WORKDIR /opt/app-root/src
+
+# Install dependencies first (layer cache)
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY backend/ .
+
+# Code Engine uses PORT env var; default to 8080
+ENV PORT=8080
+EXPOSE 8080
+
+# Allow requests from Netlify frontend (set CORS_ORIGINS in Code Engine env vars)
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
