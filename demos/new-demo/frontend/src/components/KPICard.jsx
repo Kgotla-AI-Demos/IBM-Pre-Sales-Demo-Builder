@@ -4,11 +4,9 @@
  */
 import React from 'react';
 import { Tile } from '@carbon/react';
-import {
-  TrendingUp,
-  TrendingDown,
-  Subtract,
-} from '@carbon/icons-react';
+import TrendingUp from '@carbon/icons-react/lib/trending--up/index.js';
+import TrendingDown from '@carbon/icons-react/lib/trending--down/index.js';
+import Subtract from '@carbon/icons-react/lib/subtract/index.js';
 
 export default function KPICard({ title, value, unit, trend, trendUp, color, icon: Icon }) {
   const borderColor = {

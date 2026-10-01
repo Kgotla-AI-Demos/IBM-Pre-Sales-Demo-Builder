@@ -7,7 +7,7 @@ import { GroupedBarChart, LineChart } from '@carbon/charts-react';
 import DataTableView from '../components/DataTableView.jsx';
 import { fetchAnalytics, fetchWorkOrders } from '../services/dataService.js';
 import { formatCurrency, formatDate, truncate } from '../utils/formatters.js';
-import { CheckmarkFilled } from '@carbon/icons-react';
+import CheckmarkFilled from '@carbon/icons-react/lib/checkmark--filled/index.js';
 
 const BEFORE_AFTER = [
   { metric: 'Unplanned Downtime (hrs/mo)', before: 47, after: 15, unit: 'h' },

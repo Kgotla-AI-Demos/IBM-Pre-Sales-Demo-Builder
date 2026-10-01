@@ -11,12 +11,10 @@ import KPICard from '../components/KPICard.jsx';
 import DataTableView from '../components/DataTableView.jsx';
 import { fetchDashboardData } from '../services/dataService.js';
 import { formatDate } from '../utils/formatters.js';
-import {
-  Devices,
-  Analytics,
-  Catalog,
-  CheckmarkFilled,
-} from '@carbon/icons-react';
+import Devices from '@carbon/icons-react/lib/devices/index.js';
+import Analytics from '@carbon/icons-react/lib/analytics/index.js';
+import Catalog from '@carbon/icons-react/lib/catalog/index.js';
+import CheckmarkFilled from '@carbon/icons-react/lib/checkmark--filled/index.js';
 import { MOCK_DASHBOARD } from '../data/mockResponses/index.js';
 
 const ALERT_HEADERS = [
