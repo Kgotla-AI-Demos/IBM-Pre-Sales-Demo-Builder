@@ -19,7 +19,7 @@ import {
   Tag,
   Button,
 } from '@carbon/react';
-import Download from '@carbon/icons-react/lib/download/index.js';
+import { Download } from '@carbon/icons-react';
 
 const STATUS_TAG_TYPE = {
   Normal: 'green',

@@ -6,10 +6,7 @@ import React from 'react';
 import { Grid, Column, Tile, Tag } from '@carbon/react';
 import { GroupedBarChart } from '@carbon/charts-react';
 import KPICard from '../components/KPICard.jsx';
-import WarningFilled from '@carbon/icons-react/lib/warning--filled/index.js';
-import TimeFilled from '@carbon/icons-react/lib/time--filled/index.js';
-import CurrencyDollar from '@carbon/icons-react/lib/currency--dollar/index.js';
-import ChartBar from '@carbon/icons-react/lib/chart--bar/index.js';
+import { WarningFilled, TimeFilled, CurrencyDollar, ChartBar } from '@carbon/icons-react';
 
 const PAIN_KPIS = [
   { title: 'Annual Unplanned Downtime Cost', value: '$3.2M', unit: '', trend: 'Industry avg: $2–5M/yr', trendUp: false, color: 'red' },

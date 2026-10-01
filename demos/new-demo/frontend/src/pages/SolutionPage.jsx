@@ -5,9 +5,7 @@
  */
 import React, { useState, useRef } from 'react';
 import { Grid, Column, ProgressIndicator, ProgressStep, TextArea, Button, Tag, Tile } from '@carbon/react';
-import Play from '@carbon/icons-react/lib/play/index.js';
-import DocumentAdd from '@carbon/icons-react/lib/document--add/index.js';
-import Analytics from '@carbon/icons-react/lib/analytics/index.js';
+import { Play, DocumentAdd, Analytics } from '@carbon/icons-react';
 import AIResponsePanel from '../components/AIResponsePanel.jsx';
 import SensorGauge from '../components/SensorGauge.jsx';
 import { analyzeEquipment } from '../services/watsonxService.js';

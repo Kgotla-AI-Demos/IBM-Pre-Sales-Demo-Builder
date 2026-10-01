@@ -3,6 +3,14 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    include: ['@carbon/icons-react'],
+  },
+  build: {
+    commonjsOptions: {
+      include: [/@carbon\/icons-react/, /node_modules/],
+    },
+  },
   server: {
     port: 5173,
     proxy: {

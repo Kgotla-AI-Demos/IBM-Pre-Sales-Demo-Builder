@@ -16,13 +16,15 @@ import {
   Content,
   Loading,
 } from '@carbon/react';
-import Dashboard from '@carbon/icons-react/lib/dashboard/index.js';
-import Warning from '@carbon/icons-react/lib/warning/index.js';
-import ChartLineData from '@carbon/icons-react/lib/chart--line-data/index.js';
-import Report from '@carbon/icons-react/lib/report/index.js';
-import NetworkEnterprise from '@carbon/icons-react/lib/network--enterprise/index.js';
-import Notification from '@carbon/icons-react/lib/notification/index.js';
-import UserAvatar from '@carbon/icons-react/lib/user--avatar/index.js';
+import {
+  Dashboard,
+  Warning,
+  ChartLineData,
+  Report,
+  NetworkEnterprise,
+  Notification,
+  UserAvatar,
+} from '@carbon/icons-react';
 import { Link, useLocation } from 'react-router-dom';
 import DemoBanner from './components/DemoBanner.jsx';
 import './App.scss';

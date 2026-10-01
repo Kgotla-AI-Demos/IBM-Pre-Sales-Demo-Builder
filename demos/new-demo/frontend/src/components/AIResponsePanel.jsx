@@ -5,9 +5,7 @@
  */
 import React, { useState } from 'react';
 import { Tag, Button, InlineLoading, Tile } from '@carbon/react';
-import Copy from '@carbon/icons-react/lib/copy/index.js';
-import Renew from '@carbon/icons-react/lib/renew/index.js';
-import Checkmark from '@carbon/icons-react/lib/checkmark/index.js';
+import { Copy, Renew, Checkmark } from '@carbon/icons-react';
 
 export default function AIResponsePanel({ response, onRegenerate, isLoading }) {
   const [copied, setCopied] = useState(false);
