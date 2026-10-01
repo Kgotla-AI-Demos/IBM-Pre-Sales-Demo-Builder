@@ -1,4 +1,4 @@
-# 🚀 Deploy the Demo — No Installs Needed
+# 🚀 Run the Demo — No Installs Needed
 
 > All you need is a **GitHub account** (to push the code) and a **Google account** (for Colab).
 > Everything runs in the cloud. Nothing installs on your computer.
@@ -17,7 +17,7 @@ Your repo is **already connected** to GitHub. Just push the latest changes:
 ```bash
 cd "C:\Users\User\Downloads\IBM-Pre-Sales-Demo-Builder"
 git add demos/new-demo/
-git commit -m "Add Colab deploy notebook"
+git commit -m "Update demo notebook"
 git push
 ```
 
@@ -25,36 +25,53 @@ git push
 
 ---
 
-### Step 2 — Sign up for Netlify (1 min, free)
-
-Go to **https://netlify.com** → **Sign up** → use your GitHub account.
-No credit card. Free tier is enough.
-
----
-
-### Step 3 — Open the Colab notebook (2 min)
+### Step 2 — Open the Colab notebook (30 sec)
 
 1. Go to **https://colab.research.google.com**
 2. Click **File → Open notebook → GitHub**
-3. Paste your GitHub repo URL → find **`demos/new-demo/deploy-to-netlify.ipynb`** → open it
-4. Click **Runtime → Run all** (`Ctrl+F9`)
-5. When it asks you to log in to Netlify — follow the link, paste the code back
-6. Wait ~3 minutes → you get a **live public URL** ✅
+3. Paste: `https://github.com/Kgotla-AI-Demos/IBM-Pre-Sales-Demo-Builder`
+4. Find **`demos/new-demo/deploy-to-netlify.ipynb`** → open it
 
 ---
 
-## That's it — your demo is live
+### Step 3 — Run all cells (~4 minutes)
 
-Share the Netlify URL with anyone. It works on any device, any browser, no login required.
+1. Click **Runtime → Run all** (`Ctrl+F9`)
+2. Wait ~4 minutes for all cells to finish
+3. **Cell 4** prints a URL like:
+
+```
+=================================================================
+  ✅  YOUR DEMO IS LIVE
+
+  🌐  https://xyz.trycloudflare.com
+
+  Click the link above — the demo opens in your browser.
+=================================================================
+```
+
+4. Click that link — the full demo loads in your browser ✅
+
+---
+
+## That's it — no Netlify, no extra accounts
+
+The demo runs entirely inside Colab:
+- **Backend** (FastAPI + IBM watsonx mock) runs on the Colab VM
+- **Frontend** (React app) is built and served from the same VM
+- **Cloudflare Tunnel** gives you a free public HTTPS URL instantly
+
+Share the URL with anyone. Works on any device, any browser, no login required.
 
 ---
 
 ## Every time after that
 
-When your Colab session expires (~12 hours):
-1. Reopen the notebook
-2. Run **Cells 3 → 4 → 5 → 6** (takes ~2 min)
-3. Same Netlify URL, new backend tunnel
+When the Colab session expires (~12 hours of inactivity):
+1. Reopen the notebook in Colab
+2. Click **Runtime → Run all** again
+3. Wait ~2 min (uses npm & pip caches)
+4. Cell 4 prints a new URL — use that
 
 ---
 
@@ -62,11 +79,12 @@ When your Colab session expires (~12 hours):
 
 | Problem | Fix |
 |---|---|
-| "git not found" | Git Bash is at `C:\Users\User\AppData\Local\Programs\Git\cmd\git.exe` — use Git Bash app |
-| Netlify login doesn't work | Make sure you're logged into `netlify.com` in the browser first |
-| Backend shows error | Re-run Cell 4 in the notebook to restart the tunnel |
-| Page loads but no data | The Colab session expired — re-run Cells 3–6 |
+| "git not found" | Use Git Bash app (search "Git Bash" in Start menu) |
+| Cell 4 shows ❌ "Could not get tunnel URL" | Re-run Cell 4 |
+| Page loads but shows no data | Re-run Cell 4 (backend may have crashed) |
+| All checks ❌ in Cell 5 | Re-run Cells 2–4 in order |
+| Want live IBM watsonx.ai | In Cell 4, set `DEMO_MODE=live` and add your API key |
 
 ---
 
-*Built with IBM watsonx · DEMO-MFG-001*
+*Built with IBM watsonx · DEMO-MFG-001 · IBM Pre-Sales Demo Builder*
